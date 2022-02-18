@@ -7,6 +7,7 @@ import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import Login from './components/Login/Login';
 import {auth} from './firebase';
+import Widgets from './components/Widgets/Widgets';
 
 function App() {
   const user=useSelector(selectUser);
@@ -39,6 +40,7 @@ function App() {
         {/* Feed */}
         <Feed/>
         {/* Widgets */}
+        <Widgets/>
       </div>)}
       
     </div>
