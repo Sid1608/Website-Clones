@@ -9,7 +9,7 @@ const EmailRow = ({id,title,subject,description,time}) => {
 
 
   return (
-    <div onClick={()=>history("/mail")} className="emailRow">
+    <div onClick={()=>history ("/mail")} className="emailRow">
       <div className="emailRow__options"> 
         <Checkbox/>
         <IconButton>
@@ -23,7 +23,7 @@ const EmailRow = ({id,title,subject,description,time}) => {
         {title}
       </div>
       <div className="emailRow__message"> 
-            <h4>{subject}
+            <h4>{subject}{" "}
                 <span className="emailRow__description">{description}</span>
             </h4>
       </div>
