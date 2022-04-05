@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import {Checkbox, IconButton} from  "@mui/material";
 import RedoIcon from '@mui/icons-material/Redo';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -13,8 +13,21 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import Section from '../section/Section';
 import './EmailList.css'
 import EmailRow from '../emailRow/EmailRow';
+import {db} from "../../firebase"
 const EmailList = () => {
+    const [emails,setEmails]=useState([]);
+      useEffect(()=>{
+        db.collection('emails')
+        .orderBy('timestamp','desc')
+        .onSnapshot(snapshot=>
+            setEmails(
+            snapshot.docs.map(doc=>({
+            id:doc.id,
+            data:doc.data(),
+        }))))
+      },[]);
   return (
+      
     <div className="emailList">
         <div className="emailList__settings">
             <div className="emailList__settingsLeft">
@@ -54,6 +67,28 @@ const EmailList = () => {
                 <Section Icon={LocalOfferIcon} title='Promotions' color='green'/>
         </div>
         <div className="emailList__list">
+                {emails.map(({id,data:{to,subject,message,timestamp}})=>(
+                    <EmailRow
+                        id={id}
+                        key={id}
+                        title={to}
+                        subject={subject}
+                        description={message}
+                        time={new Date(timestamp?.seconds*1000).toUTCString()}
+                    />
+                ))}
+                <EmailRow
+                    title="Twitch"
+                    subject="Hey fellow streamer!"
+                    description="This is a test"
+                    time="10pm"
+                />
+                <EmailRow
+                    title="Twitch"
+                    subject="Hey fellow streamer!"
+                    description="This is a test"
+                    time="10pm"
+                />
                 <EmailRow
                     title="Twitch"
                     subject="Hey fellow streamer!"
