@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import Header from './components/header/Header';
 import Sidebar from './components/sidebar/Sidebar';
@@ -14,9 +14,25 @@ import {
 import SendMail from './components/sendMail/SendMail';
 import { selectSendMessageIsOpen } from './features/mailSlice';
 import {useSelector} from 'react-redux';
+import Login from './components/login/Login';
 function App() {
   const sendMessageIsOpen=useSelector(selectSendMessageIsOpen)
   const user=useSelector(selectUser);
+  useEffect(()=>{
+    auth.onAuthStateChanged(user=>{
+      if(user){
+        //the user is logged in
+        dispatch(
+          login({
+            displayName:user.displayName,
+            email:user.email,
+            photoUrl:user.photoURL,
+          }))
+      }else{
+
+      }
+    })
+  },[])
   return (
     <Router>
       {!user ?(<Login/>):(

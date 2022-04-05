@@ -6,7 +6,15 @@ import SearchIcon from '@mui/icons-material/Search'
 import { ArrowDropDown } from '@mui/icons-material';
 import AppsIcon from '@mui/icons-material/Apps';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import {useSelector} from 'react-redux';
 const Header = () => { 
+    const user=userSelector(selectUser);
+    const dispatch=useDispatch();
+    const signout=()=>{
+        auth.signout().then(()=>{
+            dispatch(logout());
+        })
+    };
     return (
         <div className="header">
             <div className="header__left">
@@ -27,7 +35,7 @@ const Header = () => {
                 <IconButton>
                     <NotificationsIcon/>
                 </IconButton>
-                <Avatar/>
+                <Avatar src={user?.photoURL}/>
             </div>
         </div>
     )
